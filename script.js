@@ -1,17 +1,19 @@
-// answer button variables
+// question display and answer button variables
+var answerBtn = document.getElementById("userInput")
+var displayQ = document.getElementById("q")
+var showQ = document.getElementsByClassName("answers")
+var checkAns = document.getElementById("checkAns")
 var btnOne = document.getElementById("btn1")
 var btnTwo = document.getElementById("btn2")
 var btnThree = document.getElementById("btn3")
 var btnFour = document.getElementById("btn4")
+
 // homepage variables
 var rulesPage = document.getElementById("rulestext")
 var timerCount = document.getElementById("clock")
 var beginQuizBtn = document.getElementById("beginBtn")
 
-var answerBtn = document.getElementById("userInput")
-var displayQ = document.getElementById("q")
-var showQ = document.getElementsByClassName("answers")
-var checkAns = document.getElementById("checkAns")
+
 var timer;
 var countdown = 90;
 var end = document.getElementById("quizEnd")
