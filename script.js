@@ -66,4 +66,4 @@ function beginQuiz() {
     beginQuizBtn.style.visibility = 'hidden';
 
 }
-beginQuizBtn.addEventListener("click", beginQuiz)
+beginQuizBtn.addEventListener("click", beginQuiz, timerStart)
