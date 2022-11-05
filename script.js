@@ -8,12 +8,17 @@ var rulesPage = document.getElementById("rulestext")
 var timerCount = document.getElementById("clock")
 var beginQuizBtn = document.getElementById("beginBtn")
 
+var answerBtn = document.getElementById("userInput")
 var displayQ = document.getElementById("q")
+var showQ = document.getElementsByClassName("answers")
+var checkAns = document.getElementById("checkAns")
+var timer;
+var countdown = 90;
+var end = document.getElementById("quizEnd")
 
-// var container = document.querySelector("#container")
+var i = 0;
 
-// container.style.display = 'none'
-
+end.style.visibility = 'hidden';
 const questionData = [
     {
         question: "Commonly used Data types Do NOT Include:",
@@ -21,7 +26,7 @@ const questionData = [
         answer: "Alerts"
     },
     {
-        question: "Conditions for and if/else statement are enclosed within ______",
+        question: "Conditions for and if/else statement are enclosed within ?",
         choices: ["Quotes", "Curly Brackets", "Parentheses", "All the above"],
         answer: "Parentheses"
     },
@@ -31,7 +36,7 @@ const questionData = [
         answer: "All the above"
     },
     {
-        question: "String values are enclosed within _________ when asigning it to a variable",
+        question: "String values are enclosed within what when asigning it to a variable?",
         choices: ["Quotes", "Curly Brackets", "Parentheses", "Commas"],
         answer: "Quotes"
     },
@@ -44,26 +49,68 @@ const questionData = [
 
 
 function timerStart(){
-    let timerCount = seconds;
-    
-    const interval = setInterval(() => {
-        console.log(timerCount);
-        timerCount --;
+    timer = setInterval(function() {
+        
+        countdown --;
+        timerCount.textContent = countdown
 
-        if(timerCount < 0 ) {
+        if(countdown < 0 ) {
             return ("Time's Up!")
         }
 
     }, 1000);
 }
+function timerStop() {
+    clearInterval(countdown);
+    timerCount.style.visibility = 'hidden';
+}
 
 function questionPrompt() {
+    displayQ.style.visibility = 'visible';
 
+    displayQ.textContent = questionData[i].question;
+    btnOne.textContent = questionData[i].choices[0];
+    btnTwo.textContent = questionData[i].choices[1];
+    btnThree.textContent = questionData[i].choices[2];
+    btnFour.textContent = questionData[i].choices[3];
+
+    answerBtn.addEventListener("click", compare);
+    console.log(answerBtn)
 }
 
 
+
 function beginQuiz() {
+
     beginQuizBtn.style.visibility = 'hidden';
+    rulesPage.style.visibility = 'hidden';
+    countdown= 90;
+
+    timerStart();
+    questionPrompt();
+}
+
+function compare(a) {
+    console.log(a.target.textContent);
+    userAnswer = a.target.textContent;
+    console.log(questionData[i].answer);
+    if (userAnswer === questionData[i].answer) {
+        checkAns.textContent = "Correct!";
+    } else {
+        checkAns.textContent = "Incorrect!";
+        countdown -= 15;
+    }
+    i++;
+    if (countdown === 0 || i < questionData.length) {
+        questionPrompt();
+
+    } else {
+        displayQ.style.visibility = 'hidden';
+        timerStop();
+        end.style.visibility = 'visible';
+        answerBtn.style.visibility = 'hidden';
+    }
+    checkAns.style.visibility = 'visible';
 
 }
 beginQuizBtn.addEventListener("click", beginQuiz, timerStart)
